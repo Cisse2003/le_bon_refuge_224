@@ -196,7 +196,41 @@ git branch -M main
 git push -u origin main
 ```
 
-### Étape 2 — Déployer sur Render (recommandé, gratuit pour commencer)
+### Étape 2 — Déployer sur Hostinger (plan Business, sans VPS ni SSH)
+
+Depuis la version récente de Hostinger, le plan **Business** (hébergement web partagé) sait
+exécuter une vraie application Node.js via hPanel, sans configuration serveur manuelle.
+
+**Checklist "zéro configuration" — l'app fonctionne sans régler aucune variable :**
+
+1. hPanel → **Websites → Add website → Node.js Web App**.
+2. Choisissez **Import Git Repository** (si le code est sur GitHub) ou **Upload your files**
+   (envoi direct du dossier du projet en `.zip`).
+3. Fichier de démarrage : `server.js`.
+4. Cliquez sur **Deploy**. C'est tout — aucune variable d'environnement n'est obligatoire, le
+   site fonctionne immédiatement à l'URL fournie.
+
+**Variables à ajouter seulement une fois que le site fonctionne** (Environment Variables du
+tableau de bord de l'app), pour renforcer la sécurité :
+- `SESSION_SECRET` : une phrase aléatoire longue, pour signer les sessions de connexion.
+- `COOKIE_SECURE=true` : **à ajouter seulement après avoir vérifié que le site s'ouvre bien en
+  `https://`** dans le navigateur. Si vous l'activez trop tôt (avant confirmation du HTTPS), les
+  connexions du staff (caisse/cuisine/admin) peuvent échouer silencieusement — testez d'abord
+  sans cette variable.
+
+**Sauvegarder avant de mettre à jour le code plus tard** : sur ce mode de déploiement (upload
+ponctuel ou redéploiement manuel), vos données restent en place tant que vous ne redéployez pas.
+Si un jour vous mettez à jour le code (nouveau ZIP ou nouveau push Git), **exportez d'abord une
+sauvegarde** depuis `Admin → Sauvegardes` (Excel ou JSON) par précaution, au cas où le
+redéploiement écraserait le dossier `data/`. Ce n'est utile qu'au moment d'une mise à jour du
+code — pas pour l'usage quotidien du restaurant.
+
+*Point d'attention (déjà géré dans le code) : l'écran cuisine et les notifications utilisent une
+technologie de temps réel (WebSocket). Si l'infrastructure de Hostinger ne la relaie pas
+parfaitement, un rafraîchissement automatique toutes les 15-20 secondes prend le relais — l'appli
+reste donc fonctionnelle dans tous les cas.*
+
+### Étape 3 — Déployer sur Render (alternative, gratuite pour commencer)
 
 Le fichier `render.yaml` fourni configure tout automatiquement, disque persistant inclus.
 
@@ -207,14 +241,16 @@ Le fichier `render.yaml` fourni configure tout automatiquement, disque persistan
    - un **disque persistant** de 1 Go monté sur `/var/data`, dans lequel `DATA_DIR` et
      `UPLOADS_DIR` sont automatiquement redirigés — vos commandes, votre menu et vos photos
      survivront donc aux redéploiements ;
-   - une variable `SESSION_SECRET` générée automatiquement de façon sécurisée.
+   - les variables `SESSION_SECRET` et `COOKIE_SECURE` (Render gère le HTTPS de façon fiable,
+     donc `COOKIE_SECURE=true` est activé sans risque dès le départ sur cette plateforme).
 4. Cliquez sur **Apply**. Au bout de quelques minutes, Render vous donne une URL du type
    `https://le-bon-refuge.onrender.com` — c'est votre site, en ligne, en HTTPS.
 
 Sans `render.yaml` (configuration manuelle) : créez un **Web Service** pointant sur votre repo,
 build command `npm install`, start command `npm start`, ajoutez un disque persistant sur
 `/var/data`, puis définissez les variables d'environnement `NODE_ENV=production`,
-`SESSION_SECRET` (valeur aléatoire), `DATA_DIR=/var/data`, `UPLOADS_DIR=/var/data/uploads`.
+`COOKIE_SECURE=true`, `SESSION_SECRET` (valeur aléatoire), `DATA_DIR=/var/data`,
+`UPLOADS_DIR=/var/data/uploads`.
 
 **Important (plan gratuit Render)** : un service gratuit se met en veille après 15 minutes
 d'inactivité et met quelques secondes à se réveiller au premier accès suivant. Pour un usage

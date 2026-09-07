@@ -18,7 +18,11 @@ const dashboardRouter = require('./routes/dashboard');
 const exportRouter = require('./routes/export');
 
 const PORT = process.env.PORT || 3000;
-const EST_PRODUCTION = process.env.NODE_ENV === 'production';
+// Le cookie "secure" (HTTPS uniquement) est un réglage à activer volontairement une fois que
+// vous avez vérifié que votre site charge bien en https:// — pas automatiquement lié à
+// NODE_ENV, pour éviter qu'une connexion staff ne se bloque silencieusement si le proxy de
+// l'hébergeur ne transmet pas correctement l'en-tête HTTPS dès le premier déploiement.
+const COOKIE_SECURE = process.env.COOKIE_SECURE === 'true';
 
 const app = express();
 const server = http.createServer(app);
@@ -37,12 +41,12 @@ app.use(session({
   saveUninitialized: false,
   cookie: {
     maxAge: 12 * 60 * 60 * 1000, // 12h
-    secure: EST_PRODUCTION, // cookie transmis uniquement en HTTPS une fois en ligne
+    secure: COOKIE_SECURE, // cookie transmis uniquement en HTTPS - à activer explicitement (voir README)
     sameSite: 'lax',
   },
 }));
 
-if (EST_PRODUCTION && !process.env.SESSION_SECRET) {
+if (!process.env.SESSION_SECRET) {
   console.warn('⚠️  SESSION_SECRET n\'est pas défini : utilisez une variable d\'environnement dédiée en production.');
 }
 
