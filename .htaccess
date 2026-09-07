@@ -1,0 +1,16 @@
+# --- .htaccess Proxy Node.js sur Hostinger ---
+DirectoryIndex ""
+RewriteEngine On
+
+# 1. Forcer le passage en HTTPS
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# 2. Si un fichier ou dossier statique physique existe, le servir directement
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# 3. Rediriger tout le reste du trafic vers l'application Node.js
+# Remplacer 3000 par le port défini dans votre server.js si différent
+RewriteRule ^(.*)$ http://127.0.0.1:3000/$1 [P,L]
