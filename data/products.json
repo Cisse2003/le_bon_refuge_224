@@ -1,0 +1,318 @@
+[
+  {
+    "id": "p001",
+    "categorie": "Plats",
+    "nom": "Tacos Poulet Cheddar",
+    "description": "Poulet mariné, frites maison, cheddar fondu, sauce blanche ou algérienne.",
+    "prix": 45000,
+    "photo": "",
+    "poste": "cuisine",
+    "options": [
+      "Sauce blanche",
+      "Sauce algérienne",
+      "Sauce samouraï",
+      "Sans oignons"
+    ],
+    "disponible": true,
+    "recette": [
+      {
+        "ingredientId": "ing001",
+        "quantite": 150
+      },
+      {
+        "ingredientId": "ing008",
+        "quantite": 40
+      },
+      {
+        "ingredientId": "ing007",
+        "quantite": 80
+      }
+    ]
+  },
+  {
+    "id": "p002",
+    "categorie": "Plats",
+    "nom": "Assiette Kebab",
+    "description": "Viande de kebab, riz, salade, frites, sauce au choix.",
+    "prix": 50000,
+    "photo": "",
+    "poste": "cuisine",
+    "options": [
+      "Sauce blanche",
+      "Sauce piquante"
+    ],
+    "disponible": true,
+    "recette": [
+      {
+        "ingredientId": "ing002",
+        "quantite": 180
+      },
+      {
+        "ingredientId": "ing007",
+        "quantite": 100
+      }
+    ]
+  },
+  {
+    "id": "p003",
+    "categorie": "Fast-food",
+    "nom": "Burger Le Bon Refuge",
+    "description": "Steak haché, cheddar, salade, tomate, oignons confits, sauce maison.",
+    "prix": 40000,
+    "photo": "",
+    "poste": "cuisine",
+    "options": [
+      "Sans oignons",
+      "Extra cheddar (+5 000 FG)",
+      "Bacon (+8 000 FG)"
+    ],
+    "disponible": true,
+    "recette": [
+      {
+        "ingredientId": "ing003",
+        "quantite": 150
+      },
+      {
+        "ingredientId": "ing004",
+        "quantite": 1
+      },
+      {
+        "ingredientId": "ing008",
+        "quantite": 30
+      }
+    ]
+  },
+  {
+    "id": "p004",
+    "categorie": "Fast-food",
+    "nom": "Menu Nuggets",
+    "description": "8 nuggets, frites et boisson au choix.",
+    "prix": 45000,
+    "photo": "",
+    "poste": "cuisine",
+    "options": [
+      "Sauce ketchup",
+      "Sauce BBQ",
+      "Sauce curry"
+    ],
+    "disponible": true,
+    "recette": [
+      {
+        "ingredientId": "ing009",
+        "quantite": 160
+      },
+      {
+        "ingredientId": "ing007",
+        "quantite": 100
+      }
+    ]
+  },
+  {
+    "id": "p005",
+    "categorie": "Pizzas",
+    "nom": "Pizza Margherita",
+    "description": "Sauce tomate, mozzarella, basilic.",
+    "prix": 55000,
+    "photo": "",
+    "poste": "cuisine",
+    "options": [
+      "Petite",
+      "Moyenne",
+      "Grande (+15 000 FG)"
+    ],
+    "disponible": true,
+    "recette": [
+      {
+        "ingredientId": "ing005",
+        "quantite": 1
+      },
+      {
+        "ingredientId": "ing006",
+        "quantite": 120
+      }
+    ]
+  },
+  {
+    "id": "p006",
+    "categorie": "Pizzas",
+    "nom": "Pizza 4 Fromages",
+    "description": "Mozzarella, chèvre, roquefort, emmental.",
+    "prix": 70000,
+    "photo": "",
+    "poste": "cuisine",
+    "options": [
+      "Petite",
+      "Moyenne",
+      "Grande (+15 000 FG)"
+    ],
+    "disponible": true,
+    "recette": [
+      {
+        "ingredientId": "ing005",
+        "quantite": 1
+      },
+      {
+        "ingredientId": "ing006",
+        "quantite": 150
+      }
+    ]
+  },
+  {
+    "id": "p007",
+    "categorie": "Accompagnements",
+    "nom": "Frites maison",
+    "description": "Portion de frites fraîches.",
+    "prix": 15000,
+    "photo": "",
+    "poste": "cuisine",
+    "options": [],
+    "disponible": true,
+    "recette": [
+      {
+        "ingredientId": "ing007",
+        "quantite": 150
+      }
+    ]
+  },
+  {
+    "id": "p008",
+    "categorie": "Accompagnements",
+    "nom": "Salade César",
+    "description": "Salade, poulet grillé, parmesan, croûtons.",
+    "prix": 25000,
+    "photo": "",
+    "poste": "cuisine",
+    "options": [],
+    "disponible": true,
+    "recette": [
+      {
+        "ingredientId": "ing001",
+        "quantite": 100
+      }
+    ]
+  },
+  {
+    "id": "p009",
+    "categorie": "Boissons",
+    "nom": "Soda 33cl",
+    "description": "Coca-Cola, Fanta, Sprite, Ice Tea.",
+    "prix": 10000,
+    "photo": "",
+    "poste": "cuisine",
+    "options": [
+      "Coca-Cola",
+      "Fanta",
+      "Sprite",
+      "Ice Tea"
+    ],
+    "disponible": true
+  },
+  {
+    "id": "p010",
+    "categorie": "Boissons",
+    "nom": "Jus frais",
+    "description": "Orange, citron ou mangue pressé minute.",
+    "prix": 18000,
+    "photo": "",
+    "poste": "cuisine",
+    "options": [
+      "Orange",
+      "Citron",
+      "Mangue"
+    ],
+    "disponible": true
+  },
+  {
+    "id": "p011",
+    "categorie": "Crèmerie",
+    "nom": "Milkshake",
+    "description": "Vanille, fraise, chocolat ou Oreo.",
+    "prix": 25000,
+    "photo": "",
+    "poste": "cremerie",
+    "options": [
+      "Vanille",
+      "Fraise",
+      "Chocolat",
+      "Oreo"
+    ],
+    "disponible": true,
+    "recette": [
+      {
+        "ingredientId": "ing010",
+        "quantite": 250
+      }
+    ]
+  },
+  {
+    "id": "p012",
+    "categorie": "Crèmerie",
+    "nom": "Gaufre garnie",
+    "description": "Gaufre, chantilly, sauce chocolat, fruits.",
+    "prix": 30000,
+    "photo": "",
+    "poste": "cremerie",
+    "options": [
+      "Chocolat",
+      "Caramel",
+      "Nutella"
+    ],
+    "disponible": true,
+    "recette": [
+      {
+        "ingredientId": "ing010",
+        "quantite": 100
+      }
+    ]
+  },
+  {
+    "id": "p013",
+    "categorie": "Crèmerie",
+    "nom": "Thakiri",
+    "description": "Dessert glacé traditionnel, fruits secs et lait concentré.",
+    "prix": 28000,
+    "photo": "",
+    "poste": "cremerie",
+    "options": [],
+    "disponible": true
+  },
+  {
+    "id": "p014",
+    "categorie": "Crèmerie",
+    "nom": "Crêpe sucrée",
+    "description": "Sucre, Nutella, confiture ou citron.",
+    "prix": 18000,
+    "photo": "",
+    "poste": "cremerie",
+    "options": [
+      "Sucre",
+      "Nutella",
+      "Confiture",
+      "Citron"
+    ],
+    "disponible": true
+  },
+  {
+    "id": "p015",
+    "categorie": "Gâteaux d'anniversaire",
+    "nom": "Gâteau d'anniversaire personnalisé",
+    "description": "Gâteau sur commande : taille, parfum, décoration et texte au choix.",
+    "prix": 150000,
+    "photo": "",
+    "poste": "patisserie",
+    "options": [
+      "Vanille",
+      "Chocolat",
+      "Fraise",
+      "Red Velvet"
+    ],
+    "disponible": true,
+    "personnalisable": true,
+    "recette": [
+      {
+        "ingredientId": "ing011",
+        "quantite": 500
+      }
+    ]
+  }
+]

@@ -1,0 +1,77 @@
+[
+  {
+    "productId": "p001",
+    "quantite": 50,
+    "seuilAlerte": 10
+  },
+  {
+    "productId": "p002",
+    "quantite": 50,
+    "seuilAlerte": 10
+  },
+  {
+    "productId": "p003",
+    "quantite": 50,
+    "seuilAlerte": 10
+  },
+  {
+    "productId": "p004",
+    "quantite": 50,
+    "seuilAlerte": 10
+  },
+  {
+    "productId": "p005",
+    "quantite": 50,
+    "seuilAlerte": 10
+  },
+  {
+    "productId": "p006",
+    "quantite": 50,
+    "seuilAlerte": 10
+  },
+  {
+    "productId": "p007",
+    "quantite": 50,
+    "seuilAlerte": 10
+  },
+  {
+    "productId": "p008",
+    "quantite": 50,
+    "seuilAlerte": 10
+  },
+  {
+    "productId": "p009",
+    "quantite": 50,
+    "seuilAlerte": 10
+  },
+  {
+    "productId": "p010",
+    "quantite": 50,
+    "seuilAlerte": 10
+  },
+  {
+    "productId": "p011",
+    "quantite": 50,
+    "seuilAlerte": 10
+  },
+  {
+    "productId": "p012",
+    "quantite": 50,
+    "seuilAlerte": 10
+  },
+  {
+    "productId": "p013",
+    "quantite": 50,
+    "seuilAlerte": 10
+  },
+  {
+    "productId": "p014",
+    "quantite": 50,
+    "seuilAlerte": 10
+  },
+  {
+    "productId": "p015",
+    "quantite": 50,
+    "seuilAlerte": 10
+  }
+]

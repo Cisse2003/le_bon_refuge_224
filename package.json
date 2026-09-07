@@ -1,0 +1,22 @@
+{
+  "name": "le-bon-refuge",
+  "version": "1.0.0",
+  "description": "Site + systeme de commandes pour le restaurant Le Bon Refuge (100% local, stockage JSON + export Excel)",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "multer": "^1.4.5-lts.1",
+    "socket.io": "^4.7.5",
+    "uuid": "^9.0.1",
+    "xlsx": "^0.18.5"
+  }
+}

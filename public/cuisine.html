@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuisine (KDS) — Le Bon Refuge</title>
+<link rel="stylesheet" href="/css/style.css">
+<script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+<div class="app-shell">
+  <header class="app-topbar">
+    <div class="container">
+      <div class="logo" style="font-size:1.3rem;"><img src="/images/logo.jpg" alt="" style="height:28px;width:28px;object-fit:cover;border-radius:6px;vertical-align:middle;margin-right:0.4em;">LE BON <span>REFUGE</span> · Écran cuisine<span class="role-pill" id="rolePill"></span></div>
+      <div style="display:flex; gap:0.6rem; align-items:center;">
+        <select id="selectPoste">
+          <option value="tous">Tous les postes</option>
+          <option value="cuisine">Cuisine</option>
+          <option value="cremerie">Crèmerie</option>
+          <option value="patisserie">Pâtisserie</option>
+        </select>
+        <a href="/" class="btn btn--ghost btn--sm">Site</a>
+        <button class="btn btn--dark btn--sm" id="btnDeconnexion">Déconnexion</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-body">
+    <div class="container">
+      <div class="kds-columns">
+        <div>
+          <div class="kds-col-header">🆕 Nouvelle</div>
+          <div id="colNouvelle"></div>
+        </div>
+        <div>
+          <div class="kds-col-header">🔥 En préparation</div>
+          <div id="colEnPreparation"></div>
+        </div>
+        <div>
+          <div class="kds-col-header">✅ Prête</div>
+          <div id="colPrete"></div>
+        </div>
+        <div>
+          <div class="kds-col-header">📦 Terminée (aujourd'hui)</div>
+          <div id="colTerminee"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="/js/api.js"></script>
+<script src="/js/cuisine.js"></script>
+</body>
+</html>

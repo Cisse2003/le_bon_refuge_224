@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Administration — Le Bon Refuge</title>
+<link rel="stylesheet" href="/css/style.css">
+<script src="/socket.io/socket.io.js"></script>
+<style>
+  .admin-layout { display: grid; grid-template-columns: 220px 1fr; gap: 1.5rem; }
+  @media (max-width: 800px) { .admin-layout { grid-template-columns: 1fr; } }
+  .admin-nav { display: flex; flex-direction: column; gap: 0.3rem; }
+  .admin-nav button { text-align: left; background: none; border: none; color: var(--text-dim); padding: 0.6em 0.8em; border-radius: 8px; cursor: pointer; font-family: var(--font-body); font-size: 0.92rem; }
+  .admin-nav button.active, .admin-nav button:hover { background: var(--bg-raised-2); color: var(--paper); }
+  .panel { display: none; }
+  .panel.active { display: block; }
+  .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.6rem; }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <header class="app-topbar">
+    <div class="container">
+      <div class="logo" style="font-size:1.3rem;"><img src="/images/logo.jpg" alt="" style="height:28px;width:28px;object-fit:cover;border-radius:6px;vertical-align:middle;margin-right:0.4em;">LE BON <span>REFUGE</span> · Admin<span class="role-pill" id="rolePill"></span></div>
+      <div>
+        <a href="/" class="btn btn--ghost btn--sm">Site</a>
+        <button class="btn btn--dark btn--sm" id="btnDeconnexion">Déconnexion</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-body">
+    <div class="container admin-layout">
+      <nav class="admin-nav card" id="adminNav">
+        <button data-panel="dashboard" class="active">📊 Tableau de bord</button>
+        <button data-panel="produits">🍔 Produits</button>
+        <button data-panel="stock">📦 Stock produits</button>
+        <button data-panel="ingredients">🥩 Ingrédients & inventaire</button>
+        <button data-panel="commandes">🧾 Commandes</button>
+        <button data-panel="reservations">📅 Réservations</button>
+        <button data-panel="utilisateurs">👤 Utilisateurs</button>
+        <button data-panel="historique">🕓 Historique</button>
+        <button data-panel="export">💾 Sauvegardes</button>
+      </nav>
+
+      <div>
+        <!-- Dashboard -->
+        <section class="panel active" id="panel-dashboard">
+          <h2>Tableau de bord</h2>
+          <div class="stats-grid" id="statsGrid"></div>
+          <div class="grid-2" style="margin-top:1.5rem;">
+            <div class="card">
+              <h3 style="font-family:var(--font-body); color:var(--paper);">Produits les plus vendus</h3>
+              <table><thead><tr><th>Produit</th><th>Quantité vendue</th></tr></thead><tbody id="tblTopProduits"></tbody></table>
+            </div>
+            <div class="card">
+              <h3 style="font-family:var(--font-body); color:var(--paper);">Ventes par catégorie</h3>
+              <table><thead><tr><th>Catégorie</th><th>CA</th></tr></thead><tbody id="tblVentesCategorie"></tbody></table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Produits -->
+        <section class="panel" id="panel-produits">
+          <div class="toolbar"><h2 style="margin:0;">Produits</h2><button class="btn btn--sm" id="btnNouveauProduit">+ Nouveau produit</button></div>
+          <div class="card"><table><thead><tr><th>Nom</th><th>Catégorie</th><th>Prix</th><th>Poste</th><th>Disponible</th><th></th></tr></thead><tbody id="tblProduits"></tbody></table></div>
+        </section>
+
+        <!-- Stock -->
+        <section class="panel" id="panel-stock">
+          <h2>Gestion du stock</h2>
+          <div class="card"><table><thead><tr><th>Produit</th><th>Quantité</th><th>Seuil d'alerte</th><th></th></tr></thead><tbody id="tblStock"></tbody></table></div>
+        </section>
+
+        <!-- Ingrédients / matières premières -->
+        <section class="panel" id="panel-ingredients">
+          <div class="toolbar">
+            <h2 style="margin:0;">Ingrédients &amp; inventaire théorique</h2>
+            <button class="btn btn--sm" id="btnNouvelIngredient">+ Nouvel ingrédient</button>
+          </div>
+          <p style="max-width:640px;">Le stock est déduit automatiquement selon la recette de chaque produit dès qu'une commande est envoyée en cuisine (ex : 5 tacos poulet envoyés = 750 g de poulet déduits automatiquement). Utilisez "Ajouter" pour enregistrer une livraison reçue.</p>
+          <div class="card"><table><thead><tr><th>Ingrédient</th><th>Stock théorique</th><th>Seuil d'alerte</th><th>Livraison reçue</th><th></th></tr></thead><tbody id="tblIngredients"></tbody></table></div>
+        </section>
+
+        <!-- Commandes -->
+        <section class="panel" id="panel-commandes">
+          <div class="toolbar">
+            <h2 style="margin:0;">Commandes</h2>
+            <select id="filtreStatutCommande">
+              <option value="">Tous les statuts</option>
+              <option value="NOUVELLE">Nouvelle</option>
+              <option value="EN_PREPARATION">En préparation</option>
+              <option value="PRETE">Prête</option>
+              <option value="TERMINEE">Terminée</option>
+              <option value="ANNULEE">Annulée</option>
+            </select>
+          </div>
+          <div class="card"><table><thead><tr><th>#</th><th>Type</th><th>Table/Client</th><th>Total</th><th>Statut</th><th>Heure</th><th></th></tr></thead><tbody id="tblCommandes"></tbody></table></div>
+        </section>
+
+        <!-- Réservations -->
+        <section class="panel" id="panel-reservations">
+          <h2>Réservations</h2>
+          <div class="card"><table><thead><tr><th>Nom</th><th>Téléphone</th><th>Date</th><th>Heure</th><th>Pers.</th><th>Statut</th><th></th></tr></thead><tbody id="tblReservations"></tbody></table></div>
+        </section>
+
+        <!-- Utilisateurs -->
+        <section class="panel" id="panel-utilisateurs">
+          <div class="toolbar"><h2 style="margin:0;">Utilisateurs</h2><button class="btn btn--sm" id="btnNouvelUtilisateur">+ Nouvel utilisateur</button></div>
+          <div class="card"><table><thead><tr><th>Nom</th><th>Identifiant</th><th>Rôle</th><th>Actif</th><th></th></tr></thead><tbody id="tblUtilisateurs"></tbody></table></div>
+        </section>
+
+        <!-- Historique -->
+        <section class="panel" id="panel-historique">
+          <h2>Historique / traçabilité</h2>
+          <div class="card"><table><thead><tr><th>Date</th><th>Commande</th><th>Utilisateur</th><th>Rôle</th><th>Action</th><th>Détail</th></tr></thead><tbody id="tblHistorique"></tbody></table></div>
+        </section>
+
+        <!-- Export -->
+        <section class="panel" id="panel-export">
+          <h2>Sauvegardes</h2>
+          <div class="card" style="display:flex; flex-direction:column; gap:1rem; max-width:480px;">
+            <p>Exportez l'ensemble des données (commandes, produits, stock, réservations, historique) pour archiver ou analyser hors ligne.</p>
+            <a class="btn" href="/api/export/excel" target="_blank">⬇️ Télécharger le classeur Excel (.xlsx)</a>
+            <a class="btn btn--ghost" href="/api/export/json" target="_blank">⬇️ Télécharger la sauvegarde JSON complète</a>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Modale produit -->
+<div class="modal-overlay" id="modalProduit">
+  <div class="modal">
+    <button class="modal-close" data-close-modal>✕</button>
+    <h3 id="titreModalProduit" style="font-family:var(--font-body); color:var(--paper);">Nouveau produit</h3>
+    <form id="formProduit">
+      <input type="hidden" name="id">
+      <label>Nom</label><input type="text" name="nom" required>
+      <label>Catégorie</label>
+      <input type="text" name="categorie" list="listeCategories" required>
+      <datalist id="listeCategories">
+        <option value="Plats"><option value="Fast-food"><option value="Pizzas">
+        <option value="Accompagnements"><option value="Boissons"><option value="Crèmerie">
+        <option value="Gâteaux d'anniversaire">
+      </datalist>
+      <label>Description</label><textarea name="description" rows="2"></textarea>
+      <div class="field-row">
+        <div><label>Prix (FG)</label><input type="number" step="1" min="0" name="prix" required></div>
+        <div><label>Poste</label>
+          <select name="poste"><option value="cuisine">Cuisine</option><option value="cremerie">Crèmerie</option><option value="patisserie">Pâtisserie</option></select>
+        </div>
+      </div>
+      <label>Options (séparées par des virgules)</label>
+      <input type="text" name="options" placeholder="Sauce blanche, Sauce piquante">
+      <label>Photo</label>
+      <input type="file" name="photoFile" accept="image/*">
+      <input type="hidden" name="photo">
+      <label style="display:flex; align-items:center; gap:0.5em;"><input type="checkbox" name="disponible" style="width:auto;margin:0;" checked> Disponible</label>
+
+      <fieldset id="fieldsetRecette">
+        <legend>Recette (déduction auto. du stock)</legend>
+        <div id="lignesRecette"></div>
+        <button type="button" class="btn btn--ghost btn--sm" id="btnAjouterLigneRecette">+ Ajouter un ingrédient</button>
+      </fieldset>
+
+      <button class="btn btn--block" type="submit" style="margin-top:0.5rem;">Enregistrer</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modale ingrédient -->
+<div class="modal-overlay" id="modalIngredient">
+  <div class="modal">
+    <button class="modal-close" data-close-modal>✕</button>
+    <h3 id="titreModalIngredient" style="font-family:var(--font-body); color:var(--paper);">Nouvel ingrédient</h3>
+    <form id="formIngredient">
+      <input type="hidden" name="id">
+      <input type="hidden" name="photo">
+      <label>Nom</label><input type="text" name="nom" required placeholder="Ex : Poulet (filet)">
+      <div class="field-row">
+        <div><label>Unité</label>
+          <select name="unite"><option value="g">Grammes (g)</option><option value="ml">Millilitres (ml)</option><option value="unite">Unité (pièce)</option></select>
+        </div>
+        <div><label>Stock initial</label><input type="number" name="quantiteStock" value="0" required></div>
+      </div>
+      <label>Seuil d'alerte (stock faible)</label>
+      <input type="number" name="seuilAlerte" value="0" required>
+      <label>Photo</label>
+      <input type="file" name="photoFile" accept="image/*">
+      <div id="apercuPhotoIngredient" style="margin:0.4rem 0 1rem;"></div>
+      <button class="btn btn--block" type="submit" style="margin-top:0.5rem;">Enregistrer</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modale utilisateur -->
+<div class="modal-overlay" id="modalUtilisateur">
+  <div class="modal">
+    <button class="modal-close" data-close-modal>✕</button>
+    <h3 style="font-family:var(--font-body); color:var(--paper);">Nouvel utilisateur</h3>
+    <form id="formUtilisateur">
+      <input type="hidden" name="id">
+      <label>Nom complet</label><input type="text" name="nom" required>
+      <label>Identifiant</label><input type="text" name="username" required>
+      <label>Mot de passe <small id="hintMdp" style="color:var(--text-dim);"></small></label><input type="password" name="password">
+      <label>Rôle</label>
+      <select name="role">
+        <option value="serveur">Serveur / Caissier</option>
+        <option value="chef">Chef</option>
+        <option value="assistant_chef">Assistant du chef</option>
+        <option value="admin">Administrateur</option>
+      </select>
+      <button class="btn btn--block" type="submit" style="margin-top:0.5rem;">Enregistrer</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modale détail commande -->
+<div class="modal-overlay" id="modalCommandeDetail">
+  <div class="modal">
+    <button class="modal-close" data-close-modal>✕</button>
+    <div id="detailCommandeContenu"></div>
+  </div>
+</div>
+
+<script src="/js/api.js"></script>
+<script src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caisse — Le Bon Refuge</title>
+<link rel="stylesheet" href="/css/style.css">
+<script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+<div class="app-shell">
+  <header class="app-topbar">
+    <div class="container">
+      <div class="logo" style="font-size:1.3rem;"><img src="/images/logo.jpg" alt="" style="height:28px;width:28px;object-fit:cover;border-radius:6px;vertical-align:middle;margin-right:0.4em;">LE BON <span>REFUGE</span> · Caisse<span class="role-pill" id="rolePill"></span></div>
+      <div>
+        <a href="/" class="btn btn--ghost btn--sm">Site</a>
+        <button class="btn btn--dark btn--sm" id="btnDeconnexion">Déconnexion</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-body">
+    <div class="container grid-2">
+      <div>
+        <div class="card" style="margin-bottom:1rem;">
+          <label>Table / type de service</label>
+          <div class="field-row">
+            <select id="selectTypeService">
+              <option value="sur_place">Sur place</option>
+              <option value="a_emporter">À emporter</option>
+            </select>
+            <input type="text" id="inputTable" placeholder="N° de table (si sur place)">
+          </div>
+        </div>
+
+        <div class="tabs" id="tabsCategoriesCaisse"></div>
+        <div class="menu-grid" id="grilleMenuCaisse"></div>
+      </div>
+
+      <div>
+        <div class="card ticket" style="margin-bottom:1.2rem;">
+          <h4>Commande en cours</h4>
+          <div id="draftItems"><div class="empty-state" style="color:#8a8168;">Ajoutez des articles depuis le menu</div></div>
+          <div class="ticket-sep"></div>
+          <div class="ticket-total"><span>Total</span><span id="draftTotal">0 FG</span></div>
+        </div>
+        <button class="btn btn--block" id="btnEnvoyerCuisine">🔥 Envoyer en cuisine</button>
+
+        <h3 style="margin-top:2rem;">Mes commandes en cours</h3>
+        <div id="listeCommandesEnCours"></div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="/js/api.js"></script>
+<script src="/js/caisse.js"></script>
+</body>
+</html>

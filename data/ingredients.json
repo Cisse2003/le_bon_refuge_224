@@ -1,0 +1,90 @@
+[
+  {
+    "id": "ing001",
+    "nom": "Poulet (filet)",
+    "unite": "g",
+    "quantiteStock": 5000,
+    "seuilAlerte": 1000,
+    "photo": ""
+  },
+  {
+    "id": "ing002",
+    "nom": "Viande de kebab",
+    "unite": "g",
+    "quantiteStock": 8000,
+    "seuilAlerte": 1500,
+    "photo": ""
+  },
+  {
+    "id": "ing003",
+    "nom": "Steak haché",
+    "unite": "g",
+    "quantiteStock": 6000,
+    "seuilAlerte": 1000,
+    "photo": ""
+  },
+  {
+    "id": "ing004",
+    "nom": "Pain burger",
+    "unite": "unite",
+    "quantiteStock": 100,
+    "seuilAlerte": 20,
+    "photo": ""
+  },
+  {
+    "id": "ing005",
+    "nom": "Pâte à pizza",
+    "unite": "unite",
+    "quantiteStock": 60,
+    "seuilAlerte": 10,
+    "photo": ""
+  },
+  {
+    "id": "ing006",
+    "nom": "Mozzarella",
+    "unite": "g",
+    "quantiteStock": 4000,
+    "seuilAlerte": 800,
+    "photo": ""
+  },
+  {
+    "id": "ing007",
+    "nom": "Frites surgelées",
+    "unite": "g",
+    "quantiteStock": 10000,
+    "seuilAlerte": 2000,
+    "photo": ""
+  },
+  {
+    "id": "ing008",
+    "nom": "Cheddar",
+    "unite": "g",
+    "quantiteStock": 2000,
+    "seuilAlerte": 400,
+    "photo": ""
+  },
+  {
+    "id": "ing009",
+    "nom": "Nuggets",
+    "unite": "g",
+    "quantiteStock": 6000,
+    "seuilAlerte": 1000,
+    "photo": ""
+  },
+  {
+    "id": "ing010",
+    "nom": "Lait (crèmerie)",
+    "unite": "ml",
+    "quantiteStock": 8000,
+    "seuilAlerte": 1500,
+    "photo": ""
+  },
+  {
+    "id": "ing011",
+    "nom": "Farine (pâtisserie)",
+    "unite": "g",
+    "quantiteStock": 5000,
+    "seuilAlerte": 1000,
+    "photo": ""
+  }
+]

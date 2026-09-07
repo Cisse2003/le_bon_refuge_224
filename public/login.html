@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connexion — Le Bon Refuge</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="login-shell">
+  <div class="card login-card">
+    <p class="eyebrow">Espace staff</p>
+    <h2 style="font-family:var(--font-body); color:var(--paper);">Connexion</h2>
+    <form id="formLogin">
+      <label>Identifiant</label>
+      <input type="text" name="username" autocomplete="username" required autofocus>
+      <label>Mot de passe</label>
+      <input type="password" name="password" autocomplete="current-password" required>
+      <button class="btn btn--block" type="submit">Se connecter</button>
+    </form>
+    <div class="demo-accounts">
+      Comptes fournis par défaut (à changer dans l'espace Admin) :<br>
+      admin / admin123 · chef / chef123<br>
+      assistant / assistant123 · serveur1 / serveur123
+    </div>
+    <p style="margin-top:1rem;"><a href="/" style="color:var(--text-dim); font-size:0.85rem;">← Retour au site</a></p>
+  </div>
+</div>
+<script src="/js/api.js"></script>
+<script>
+document.getElementById('formLogin').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const fd = new FormData(e.target);
+  try {
+    const { user } = await apiPost('/api/auth/login', { username: fd.get('username'), password: fd.get('password') });
+    const destinations = { admin: '/admin.html', chef: '/cuisine.html', assistant_chef: '/cuisine.html', serveur: '/caisse.html' };
+    window.location.href = destinations[user.role] || '/';
+  } catch (err) {
+    toast(err.message, 'error');
+  }
+});
+</script>
+</body>
+</html>

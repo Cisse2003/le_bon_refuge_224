@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Bon Refuge — Le goût qui vous accueille</title>
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="container">
+    <a href="#accueil" class="logo" style="display:flex;align-items:center;gap:0.5rem;"><img src="/images/logo.jpg" alt="Le Bon Refuge" style="height:42px;width:42px;object-fit:cover;border-radius:8px;">LE BON <span>REFUGE</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#accueil">Accueil</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#reservation">Réservation</a></li>
+      <li><a href="#gateaux">Gâteaux</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="/login.html" class="btn btn--ghost btn--sm">Espace staff</a>
+      <button class="btn btn--dark cart-btn" id="btnOuvrirPanier" type="button">
+        🛒 Panier <span class="cart-badge" id="cartBadge" style="display:none">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<section class="hero" id="accueil">
+  <div class="container hero-grid">
+    <div>
+      <p class="eyebrow">Restaurant · Près du campus</p>
+      <h1>Le goût qui vous accueille.</h1>
+      <p style="max-width:520px; font-size:1.05rem;">Tacos, burgers, pizzas, crèmerie et gâteaux d'anniversaire faits maison. Sur place, à emporter ou à réserver à l'avance — la carte complète en quelques clics.</p>
+      <div class="hero-actions">
+        <a href="#menu" class="btn">Commander en ligne</a>
+        <a id="lienAppelHero" href="#" class="btn btn--ghost">📞 Appeler pour commander</a>
+        <a id="lienWhatsappHero" href="#" target="_blank" class="btn btn--whatsapp">💬 WhatsApp</a>
+      </div>
+      <div class="hero-actions" style="margin-top:0.6rem;">
+        <a href="#reservation" class="btn btn--ghost btn--sm">Réserver une table</a>
+      </div>
+      <div class="hero-meta">
+        <div><strong>Lun–Dim</strong>11h30 – 23h00</div>
+        <div><strong>Adresse</strong>12 rue de l'Université</div>
+        <div><strong>Avis clients</strong>★★★★☆ 4,6/5</div>
+      </div>
+    </div>
+    <div class="ticket">
+      <h4>Populaires cette semaine</h4>
+      <div id="platsPopulaires"></div>
+      <div class="ticket-sep"></div>
+      <div class="ticket-row"><span>Livraison bientôt disponible</span><span>🛵</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="menu">
+  <div class="container">
+    <p class="eyebrow">La carte</p>
+    <h2>Notre menu</h2>
+    <div class="tabs" id="tabsCategories"></div>
+    <div class="menu-grid" id="grilleMenu"></div>
+  </div>
+</section>
+
+<section class="section section--tight" id="gateaux">
+  <div class="container">
+    <div class="card" style="display:flex; gap:1.5rem; flex-wrap:wrap; align-items:center; justify-content:space-between;">
+      <div>
+        <p class="eyebrow">Sur commande</p>
+        <h3 style="font-family:var(--font-body); color:var(--paper);">Un gâteau d'anniversaire personnalisé ?</h3>
+        <p style="margin:0; max-width:520px;">Taille, parfum, décoration, texte personnalisé et même une photo modèle : composez le gâteau parfait pour l'occasion.</p>
+      </div>
+      <button class="btn" id="btnCommanderGateau" type="button">Composer mon gâteau</button>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="reservation">
+  <div class="container grid-2">
+    <div class="card">
+      <p class="eyebrow">Réserver une table</p>
+      <h2>On vous garde une place</h2>
+      <form id="formReservation">
+        <div class="field-row">
+          <div><label>Nom</label><input type="text" name="nom" required></div>
+          <div><label>Téléphone</label><input type="tel" name="tel" required></div>
+        </div>
+        <div class="field-row">
+          <div><label>Date</label><input type="date" name="date" required></div>
+          <div><label>Heure</label><input type="time" name="heure" required></div>
+        </div>
+        <label>Nombre de personnes</label>
+        <input type="number" name="personnes" min="1" value="2" required>
+        <label>Notes (allergies, occasion...)</label>
+        <textarea name="notes" rows="2"></textarea>
+        <button class="btn btn--block" type="submit">Confirmer la réservation</button>
+      </form>
+    </div>
+    <div class="card">
+      <p class="eyebrow">Bon à savoir</p>
+      <h3 style="font-family:var(--font-body); color:var(--paper);">Comment ça marche</h3>
+      <p>Votre demande est envoyée directement à l'équipe. Vous recevrez une confirmation par téléphone. Pour toute urgence, contactez-nous directement sur WhatsApp.</p>
+      <a id="lienWhatsappReservation" href="#" target="_blank" class="btn btn--whatsapp btn--block">💬 Réserver via WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight" id="contact">
+  <div class="container">
+    <div class="card">
+      <p class="eyebrow">Contact</p>
+      <h2>Nous trouver</h2>
+      <div class="footer-grid">
+        <div>
+          <h4>Adresse</h4>
+          <p>12 rue de l'Université<br>À 5 min à pied du campus</p>
+        </div>
+        <div>
+          <h4>Téléphone</h4>
+          <p><a id="lienAppelContact" href="#">📞 <span id="texteTelephoneContact"></span></a></p>
+          <h4 style="margin-top:1em;">WhatsApp</h4>
+          <p><a id="lienWhatsappContact" href="#" target="_blank">Discuter sur WhatsApp</a></p>
+        </div>
+        <div>
+          <h4>Horaires</h4>
+          <p>Lundi – Dimanche<br>11h30 – 23h00</p>
+        </div>
+        <div>
+          <h4>Réseaux</h4>
+          <div class="social-links">
+            <a id="lienTiktokContact" href="#" target="_blank" title="TikTok">TT</a>
+            <a id="lienFacebookContact" href="#" target="_blank" title="Facebook">FB</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p style="text-align:center; margin:0; font-family:var(--font-mono); font-size:0.78rem;">LE BON REFUGE — Le goût qui vous accueille · <a href="/login.html">Espace staff</a></p>
+  </div>
+</footer>
+
+<!-- Panier -->
+<div class="overlay" id="overlay"></div>
+<aside class="cart-drawer" id="cartDrawer">
+  <div class="cart-drawer__header">
+    <h3 style="margin:0; font-family:var(--font-body); color:var(--paper);">Votre panier</h3>
+    <button class="modal-close" id="btnFermerPanier">✕</button>
+  </div>
+  <div class="cart-drawer__body" id="cartBody"></div>
+  <div class="cart-drawer__footer">
+    <div class="ticket-total" style="color:var(--paper); margin-bottom:1rem;">
+      <span>Total</span><span id="cartTotal">0 FG</span>
+    </div>
+    <button class="btn btn--block" id="btnCommander" type="button">Passer commande</button>
+  </div>
+</aside>
+
+<!-- Modale personnalisation gâteau -->
+<div class="modal-overlay" id="modalGateau">
+  <div class="modal">
+    <button class="modal-close" data-close-modal>✕</button>
+    <h3 style="font-family:var(--font-body); color:var(--paper);">Composer un gâteau</h3>
+    <form id="formGateau">
+      <label>Taille</label>
+      <select name="taille" required>
+        <option value="6 parts">6 parts</option>
+        <option value="10 parts">10 parts</option>
+        <option value="15 parts">15 parts</option>
+        <option value="20 parts">20 parts</option>
+      </select>
+      <label>Parfum</label>
+      <select name="parfum" id="selectParfumGateau" required></select>
+      <label>Décoration souhaitée</label>
+      <input type="text" name="decoration" placeholder="Ex : thème licorne, chocolat, fruits rouges...">
+      <label>Texte sur le gâteau</label>
+      <input type="text" name="texte" placeholder="Ex : Joyeux anniversaire Sarah !">
+      <div class="field-row">
+        <div><label>Date de retrait</label><input type="date" name="date" required></div>
+        <div><label>Heure de retrait</label><input type="time" name="heure" required></div>
+      </div>
+      <label>Photo modèle (facultatif)</label>
+      <input type="file" name="photo" accept="image/*">
+      <button class="btn btn--block" type="submit">Ajouter au panier</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modale préparation de la commande -->
+<div class="modal-overlay" id="modalCommande">
+  <div class="modal">
+    <button class="modal-close" data-close-modal>✕</button>
+    <h3 style="font-family:var(--font-body); color:var(--paper);">Préparer ma commande</h3>
+    <p style="font-size:0.85rem; margin-top:-0.4rem;">⚠️ Aucune commande n'est validée automatiquement en ligne. Ces informations servent uniquement à préparer votre appel ou votre message.</p>
+    <form id="formCommande">
+      <label>Type de commande</label>
+      <select name="type" id="selectTypeCommande" required>
+        <option value="a_emporter">À emporter (maintenant)</option>
+        <option value="a_l_avance">À l'avance (choisir date/heure)</option>
+      </select>
+      <div id="champsAvance" style="display:none;">
+        <div class="field-row">
+          <div><label>Date</label><input type="date" name="date"></div>
+          <div><label>Heure</label><input type="time" name="heure"></div>
+        </div>
+        <label>Nombre de personnes</label>
+        <input type="number" name="personnes" min="1" value="1">
+      </div>
+      <div class="field-row">
+        <div><label>Nom</label><input type="text" name="nom" required></div>
+        <div><label>Téléphone</label><input type="tel" name="tel" required></div>
+      </div>
+      <label>Note pour la commande</label>
+      <textarea name="notes" rows="2" placeholder="Facultatif"></textarea>
+      <button class="btn btn--block" type="submit">Voir le récapitulatif</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modale récapitulatif : la commande n'est confirmée que par appel ou WhatsApp -->
+<div class="modal-overlay" id="modalConfirmation">
+  <div class="modal">
+    <button class="modal-close" data-close-modal>✕</button>
+    <div class="ticket" id="ticketConfirmation"></div>
+    <p style="text-align:center; font-size:0.85rem; margin-top:1rem;">📞 Votre commande n'est prise en compte qu'après confirmation par téléphone ou WhatsApp.</p>
+    <div style="display:flex; gap:0.6rem; margin-top:0.4rem;">
+      <a id="btnAppelerRecap" href="#" class="btn btn--ghost btn--block">📞 Appeler</a>
+      <a id="btnWhatsappRecap" href="#" target="_blank" class="btn btn--whatsapp btn--block">💬 WhatsApp</a>
+    </div>
+    <button class="btn btn--ghost btn--block" style="margin-top:0.6rem;" data-close-modal>Fermer</button>
+  </div>
+</div>
+
+<script src="/js/api.js"></script>
+<script src="/js/site.js"></script>
+</body>
+</html>
